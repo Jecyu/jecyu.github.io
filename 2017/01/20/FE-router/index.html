@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="路由，联动," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="如图，用户点击链接的过程，就像是路飞发出一个请求 URL，要去女帝的国家，至于如何到达，路飞不用管，交给娜美处理就好（这里娜美制定各种航线，到达目的地）。在浏览一个网站时，我们可以通过当前点击各种超链接，从而浏览不同的页面内容，在这其中发生的过程是：  点击一个链接，改变当前网站的 URL ，通过浏览器发送请求； 服务端接收请求，处理解析 URL 路径； 根据服务器的路由配置，返回新的数据（图片、">
+<meta name="keywords" content="路由，联动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端路由窥探">
+<meta property="og:url" content="https://Jecyu.github.io/2017/01/20/FE-router/index.html">
+<meta property="og:site_name" content="花森煜米地">
+<meta property="og:description" content="如图，用户点击链接的过程，就像是路飞发出一个请求 URL，要去女帝的国家，至于如何到达，路飞不用管，交给娜美处理就好（这里娜美制定各种航线，到达目的地）。在浏览一个网站时，我们可以通过当前点击各种超链接，从而浏览不同的页面内容，在这其中发生的过程是：  点击一个链接，改变当前网站的 URL ，通过浏览器发送请求； 服务端接收请求，处理解析 URL 路径； 根据服务器的路由配置，返回新的数据（图片、">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p1s28g7i1.bkt.clouddn.com/onepiece_route.png">
+<meta property="og:image" content="http://p1s28g7i1.bkt.clouddn.com/dropdown_menu_tabs.png">
+<meta property="og:updated_time" content="2018-01-22T14:12:34.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端路由窥探">
+<meta name="twitter:description" content="如图，用户点击链接的过程，就像是路飞发出一个请求 URL，要去女帝的国家，至于如何到达，路飞不用管，交给娜美处理就好（这里娜美制定各种航线，到达目的地）。在浏览一个网站时，我们可以通过当前点击各种超链接，从而浏览不同的页面内容，在这其中发生的过程是：  点击一个链接，改变当前网站的 URL ，通过浏览器发送请求； 服务端接收请求，处理解析 URL 路径； 根据服务器的路由配置，返回新的数据（图片、">
+<meta name="twitter:image" content="http://p1s28g7i1.bkt.clouddn.com/onepiece_route.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://Jecyu.github.io/2017/01/20/FE-router/"/>
+
+
+
+
+
+  <title>前端路由窥探 | 花森煜米地</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花森煜米地</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://Jecyu.github.io/2017/01/20/FE-router/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="linjiyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006i3LGmgy1fmuk6kj5i1j30440443z0.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花森煜米地">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端路由窥探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
+                2017-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://p1s28g7i1.bkt.clouddn.com/onepiece_route.png" alt=""><br>如图，用户点击链接的过程，就像是路飞发出一个请求 URL，要去女帝的国家，至于如何到达，路飞不用管，交给娜美处理就好（这里娜美制定各种航线，到达目的地）。在浏览一个网站时，我们可以通过当前点击各种超链接，从而浏览不同的页面内容，在这其中发生的过程是：</p>
+<ol>
+<li>点击一个链接，改变当前网站的 URL ，通过浏览器发送请求；</li>
+<li>服务端接收请求，处理解析 URL 路径；</li>
+<li>根据服务器的路由配置，返回新的数据（图片、json 数据）、页面等；</li>
+<li>浏览器来根据数据包的 <code>Content-Type</code> 来决定如何解析数据。</li>
+</ol>
+<p>结论：路由是请求连接到某些代码的机制，通过检测当前页面的 URL 地址，与服务端进行交互，返回对应的页面内容。我们常听说前端路由与后端路由，</p>
+<h2 id="一、服务端路由-amp-amp-客户端（前端）路由"><a href="#一、服务端路由-amp-amp-客户端（前端）路由" class="headerlink" title="一、服务端路由 &amp;&amp; 客户端（前端）路由"></a>一、服务端路由 &amp;&amp; 客户端（前端）路由</h2><p><strong>服务端路由</strong></p>
+<p>当浏览一个页面的时候，点击链接时会从服务器请求一个新的页面，以此带来的时对整个页面进行刷新，这就是<code>服务端路由</code>。由于存在许久，这种方法对搜索爬虫比较友好，而且只会请求我们需要的数据。缺点是，每次都是进行整个页面的刷新，尽管网页的头部和尾部都是相同的。其次，当网页内容非常大或我们不在处在服务区边缘的时候，就需要等比较久。现在网速已经达到 100M/s，这个缺点往往可以忽略了。</p>
+<p><strong>前端路由</strong></p>
+<p>前端路由衍生于后端，都是需要跟服务端交互的，区别是一开始就把整个网站需要的内容加载完毕，然后通过在 JavaScript 路由处理，检测 URL 状态变化（change State），不用刷新页面就可以进行页面内容（view）的更换了。 我们知道使用 ajax 可以进行异步刷新，而使用前端路由，我们还可以做到页面跳转也不用刷新，配合它们就可以妥妥造飞机了。</p>
+<h2 id="二、前端路由实现原理"><a href="#二、前端路由实现原理" class="headerlink" title="二、前端路由实现原理"></a>二、前端路由实现原理</h2><p>前端路由实现有两种方式，一种是 hash 形式，另外一种是利用 history API 来处理。实现过程：</p>
+<ol>
+<li>检测状态改变</li>
+<li>调用回调函数</li>
+<li>重新渲染视图</li>
+</ol>
+<p>以 hash 形式，当 url 的 hash 发生改变时，触发 haschange 事件注册的回调，进行页面 DOM 的更换。</p>
+<pre><code>function Router() {
+    this.routes = {};
+    this.currentUrl = &quot;&quot;;
+}
+
+/**
+ * 1.存储路由更新时的回调到回调数组 routes 中，回调函数将负责对页面的更新
+ * @param {*} path
+ * @param {*} callback
+ */
+Router.prototype.route = function(path, callback) {
+    this.routes[path] = callback || function() {};
+};
+
+/**
+ * 2.refresh 执行当前 url 对应的回调函数，更新页面
+ */
+Router.prototype.refresh = function() {
+    this.currentUrl = location.hash.slice(1) || &quot;/&quot;;
+    this.routes[this.currentUrl]();
+};
+
+/**
+ * 3.init 监听浏览器 url hash 更新页面
+ */
+Router.prototype.init = function() {
+    window.addEventListener(&quot;load&quot;, this.refresh.bind(this), false);
+    window.addEventListener(&quot;hashchange&quot;, this.refresh.bind(this), false);
+};
+
+应用例子：
+</code></pre><h2 id="三、实现一个需求：-tabs-与下拉菜单的联动"><a href="#三、实现一个需求：-tabs-与下拉菜单的联动" class="headerlink" title="三、实现一个需求： tabs 与下拉菜单的联动"></a>三、实现一个需求： tabs 与下拉菜单的联动</h2><p><img src="http://p1s28g7i1.bkt.clouddn.com/dropdown_menu_tabs.png" alt=""></p>
+<p>实现的效果： 用户点击下拉菜单，页面的 banner 进行更换，页面 tabs 进行相应的切换。有两种方法实现：</p>
+<ol>
+<li>通过调用后端接口，进行局部页面刷新。</li>
+<li>原始方法，静态页面，所有页面内容放在同一个页面下，使用 JavaScript 原始 router 实现。利用我们刚刚学到的知识，可以解决这个问题了。</li>
+</ol>
+<p>前端路由：</p>
+<p>HTML结构：</p>
+<pre><code>&lt;li class=&quot;dropdown&quot;&gt;
+ &lt;a href=&quot;#&quot; class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; role=&quot;button&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;合作与生态
+      &lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
+ &lt;/a&gt;
+ &lt;ul class=&quot;dropdown-menu&quot;&gt;
+      &lt;li&gt;
+          &lt;a href=&quot;cooperation-ecology.html#/card_cooperation&quot; data-targetTab=&quot;card_cooperation&quot;&gt;发卡合作&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+         &lt;a href=&quot;cooperation-ecology.html#/industry_cooperation&quot; data-targetTab=&quot;industry_cooperation&quot;&gt;行业合作&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+         &lt;a href=&quot;cooperation-ecology.html#/pay_for_access&quot; data-targetTab=&quot;pay_for_access&quot;&gt;支付接入&lt;/a&gt;
+      &lt;/li&gt;
+ &lt;/ul&gt;
+</code></pre><p>   </p>
+<p>第一步：定义回调函数，这里是更改页面的 tab 和 banner 内容</p>
+<pre><code>/**
+ * 更换 tab 内容
+ * @param {*} tabNav
+ * @param {*} tabConent
+ * @param {string} bannerUrl 图片地址
+ */
+function changeTab(tabNav, tabConentID, bannerUrl) {
+    // 遍历 a 链接，添加 active
+    tabNav.each(function(index) {
+        if ($(this).attr(&quot;data-targetTab&quot;) === tabConentID) {
+            $(this)
+                .parent()
+                .addClass(&quot;active&quot;)
+                .siblings()
+                .removeClass(&quot;active&quot;);
+        }
+    });
+
+    // 显示对应的 tab-content
+    $(&quot;#&quot; + tabConentID)
+        .show()
+        .siblings()
+        .hide();
+
+    // 显示对应的 banner
+    // 找到 banner
+    var $banner = $(&quot;.section-banner .banner&quot;);
+    var $banner_img = $banner.find(&quot;img&quot;);
+    // 图片地址
+    $banner_img.attr(&quot;src&quot;, bannerUrl);
+}   
+</code></pre><p>第二步：定义路由规则，绑定路由函数</p>
+<pre><code>// 初始化路由
+window.Router = new Router();
+window.Router.init();
+
+// 找到 tabs link
+var $tabs_nav = $(&quot;.tabs-nav&quot;);
+var $tabs_item_link = $tabs_nav.find(&quot;.nav-item a&quot;);
+
+// 操作tab
+var tab_1 = &quot;card_cooperation&quot;;
+var tab_2 = &quot;industry_cooperation&quot;;
+var tab_3 = &quot;pay_for_access&quot;;
+
+
+var tab_1_bannerUrl = &quot;../images/product/product_banner-1.png&quot;;
+var tab_2_bannerUrl = &quot;../images/product/product_banner-2.png&quot;;
+var tab_3_bannerUrl = &quot;../images/product/product_banner-1.png&quot;;
+
+Router.route(&quot;/&quot; + tab_1, function() {
+changeTab($tabs_item_link, tab_1, tab_1_bannerUrl);
+});
+
+Router.route(&quot;/&quot; + tab_2, function() {
+    changeTab($tabs_item_link, tab_2, tab_2_bannerUrl);
+});
+
+Router.route(&quot;/&quot; + tab_3, function() {
+    changeTab($tabs_item_link, tab_3, tab_3_bannerUrl);
+});
+</code></pre><p>这样只需要指明当前链接的 <code>hash</code> 属性指向，绑定自定义的回调函数，就可以实现 tabs 与下拉菜单的联动。</p>
+<p>小结：利用路由可以实现页面的跳转不刷新，只需要监听当前 <code>hash</code> 的变化，就可以实现 DOM视图的更新了。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://medium.com/@wilbo/server-side-vs-client-side-routing-71d710e9227f" target="_blank" rel="noopener">Server-side vs Client-side Routing</a></li>
+<li><a href="http://www.alloyteam.com/2016/05/router/" target="_blank" rel="noopener">前端路由实现与 react-router 源码分析</a></li>
+<li><a href="https://segmentfault.com/a/1190000011967786#articleHeader2" target="_blank" rel="noopener">前端路由的前生今世及实现原理</a></li>
+<li><a href="https://segmentfault.com/a/1190000007238999" target="_blank" rel="noopener">前端路由的两种实现原理</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/路由，联动/" rel="tag"># 路由，联动</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/10/Local-Storage-And-How-To-Use-It-On-Website/" rel="prev" title="使用HTML5 localStorage实现本地存储">
+                使用HTML5 localStorage实现本地存储 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://ww1.sinaimg.cn/large/006i3LGmgy1fmuk6kj5i1j30440443z0.jpg"
+                alt="linjiyu" />
+            
+              <p class="site-author-name" itemprop="name">linjiyu</p>
+              <p class="site-description motion-element" itemprop="description">人生没有来日方长，相爱记得趁早(☄⊙ω⊙)☄</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、服务端路由-amp-amp-客户端（前端）路由"><span class="nav-number">1.</span> <span class="nav-text">一、服务端路由 &amp;&amp; 客户端（前端）路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、前端路由实现原理"><span class="nav-number">2.</span> <span class="nav-text">二、前端路由实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、实现一个需求：-tabs-与下拉菜单的联动"><span class="nav-number">3.</span> <span class="nav-text">三、实现一个需求： tabs 与下拉菜单的联动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">linjiyu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

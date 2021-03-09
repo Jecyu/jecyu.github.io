@@ -1,2 +1,21 @@
-# Jecyu.github.io
-这里是花森煜米地，不定期分享玉米，欢迎交流。
+# my-blog
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```

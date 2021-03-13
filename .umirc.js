@@ -12,7 +12,7 @@ export default {
       antd: true,
       dva: true,
       dynamicImport: { webpackChunkName: true },
-      title: 'astonishqft.github.io',
+      title: 'naluduo.github.io',
       dll: true,
       locale: {
         enable: true,

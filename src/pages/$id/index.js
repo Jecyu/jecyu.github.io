@@ -374,7 +374,7 @@ class Detail extends Component {
           ) : null}
         </Skeleton>
         <div className={styles.footer}>
-          <b>&copy;2019-2020 astonishqft. All rights reserved.</b>
+          <b>&copy;2019-2020 naluduo. All rights reserved.</b>
         </div>
       </div>
     );

@@ -121,8 +121,8 @@ const createComment = (issue_number, body) => {
 const githubAuth = code => {
   return axios({
     method: 'POST',
-    //  url: `https://now-blog-server.1551601581.now.sh/api/githubAuth?code=${code}`,
-      url: `http://localhost:8001/api/githubAuth?code=${code}`,
+     url: `https://my-blog-server.vercel.app/api/githubAuth?code=${code}`,
+      // url: `http://localhost:8001/api/githubAuth?code=${code}`,
   });
 }
 

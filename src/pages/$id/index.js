@@ -332,6 +332,8 @@ class Detail extends Component {
                       onClick={() => {
                         window.location.href =
                           'https://github.com/login/oauth/authorize?client_id=Iv1.4b7099aca41da4cf&redirect_uri=https://naluduo.vip';
+                          // window.location.href =
+                          // 'https://github.com/login/oauth/authorize?client_id=Iv1.4b7099aca41da4cf&redirect_uri=http:localhost//8000';
                       }}
                     >
                       github登录
@@ -374,7 +376,7 @@ class Detail extends Component {
           ) : null}
         </Skeleton>
         <div className={styles.footer}>
-          <b>&copy;2019-2020 naluduo. All rights reserved.</b>
+          <b>&copy;2021-current naluduo. All rights reserved.</b>
         </div>
       </div>
     );

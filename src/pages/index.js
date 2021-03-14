@@ -128,7 +128,7 @@ class Index extends Component {
             className={styles.list}
             footer={
               <div className={styles['copyright']}>
-                <b>&copy;2019-2020 naluduo. All rights reserved.</b>
+                <b>&copy;2021-current naluduo. All rights reserved.</b>
               </div>
             }
             renderItem={item => (

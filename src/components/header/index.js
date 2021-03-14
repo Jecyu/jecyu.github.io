@@ -26,23 +26,24 @@ class Header extends React.Component {
     localStorage.setItem('github_token', '');
     dispatch({
       type: 'user/clear',
-    })
-  }
+    });
+  };
 
   renderMenu = () => {
     return (
       <Menu>
-        <Menu.Item key="logout"
-          onClick={
-            () => {
-              this.handleMenuClick()
-            }}>
+        <Menu.Item
+          key="logout"
+          onClick={() => {
+            this.handleMenuClick();
+          }}
+        >
           <Icon type="logout" />
           退出登录
         </Menu.Item>
       </Menu>
-    )
-  }
+    );
+  };
 
   handleSearch = value => {
     const { dispatch } = this.props;
@@ -52,19 +53,21 @@ class Header extends React.Component {
         keyword: value,
       },
     });
-  }
+  };
 
   render() {
     const {
-      user: {
-        userInfo = {}
-      }
+      user: { userInfo = {} },
     } = this.props;
-    const avatarUrl = userInfo.avatar_url ? userInfo.avatar_url : "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png";
+    const avatarUrl = userInfo.avatar_url
+      ? userInfo.avatar_url
+      : 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png';
     return (
       <div className={styles.header}>
         <div className={styles.container}>
-          <div className={styles.title}><img src={blogPng} alt="" /></div>
+          <a href="/" className={styles.title}>
+            <img src={blogPng} alt="" />
+          </a>
           <div className={styles.tool}>
             <Input.Search
               placeholder="请输入关键字搜索"
@@ -72,23 +75,18 @@ class Header extends React.Component {
               onSearch={value => this.handleSearch(value)}
               style={{ width: '175px' }}
             />
-            {
-              userInfo.isLogin ? (
-                <Fragment>
-                  <Avatar
-                    className={styles.avatar}
-                    src={avatarUrl}
-                  />
-                  <Dropdown overlay={this.renderMenu()}>
-                    <Icon type="more" style={{ color: '#1DA57A', fontSize: 34 }} />
-                  </Dropdown>
-                </Fragment>
-              ) : null
-            }
+            {userInfo.isLogin ? (
+              <Fragment>
+                <Avatar className={styles.avatar} src={avatarUrl} />
+                <Dropdown overlay={this.renderMenu()}>
+                  <Icon type="more" style={{ color: '#1DA57A', fontSize: 34 }} />
+                </Dropdown>
+              </Fragment>
+            ) : null}
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

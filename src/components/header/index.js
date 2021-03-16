@@ -84,6 +84,11 @@ class Header extends React.Component {
               </Fragment>
             ) : null}
           </div>
+          <div className={styles.tool}>
+            <a href="https://naluduo.vip/Notebook" target="_">
+              个人笔记本
+            </a>
+          </div>
         </div>
       </div>
     );

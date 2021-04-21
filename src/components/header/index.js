@@ -46,6 +46,8 @@ class Header extends React.Component {
   };
 
   handleSearch = value => {
+    console.log('value ->', value);
+    
     const { dispatch } = this.props;
     dispatch({
       type: 'home/search',

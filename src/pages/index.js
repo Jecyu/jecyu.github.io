@@ -6,6 +6,7 @@ import moment from 'moment';
 import Markdown from '@/components/markdown';
 import Archive from '@/components/archive';
 import styles from './index.less';
+import { filterIssue } from '@/models/home';
 
 const IconText = ({ type, text }) => (
   <span>
@@ -102,18 +103,23 @@ class Index extends Component {
   };
 
   handleTagChange = tag => {
-    // TODO
+    const { dispatch } = this.props;
+    // 提交到 model
+    dispatch(filterIssue(tag));
   };
 
   render() {
     const {
-      home: { issuesList = [] },
+      home: { issuesList = [], copyIssueList = {} },
       issuesLoading = false,
     } = this.props;
 
-    const timeLine = this.getTimeLine(issuesList);
-    const tags = this.getTags(issuesList);
-    console.log('issuesList ->', issuesList);
+    // 时间轴和标签动态变化（比如搜索）
+    // const timeLine = this.getTimeLine(issuesList);
+    // const tags = this.getTags(issuesList);
+    // 时间轴和标签一直存在
+    const timeLine = this.getTimeLine(copyIssueList);
+    const tags = this.getTags(copyIssueList);
 
     return (
       <div className={styles.root}>
@@ -146,7 +152,11 @@ class Index extends Component {
                     style={{ borderRadius: 5 }}
                     alt="cover picture"
                     // src={item.body.match(/!\[.+?\]\((.+?[^)]*)\)/)[1]}
-                    src={(/!\[(.*?)\]\((.*?)\)/).exec(item.body) ? (/!\[(.*?)\]\((.*?)\)/).exec(item.body)[2]: "默认占位图"}
+                    src={
+                      /!\[(.*?)\]\((.*?)\)/.exec(item.body)
+                        ? /!\[(.*?)\]\((.*?)\)/.exec(item.body)[2]
+                        : '默认占位图'
+                    }
                   />
                 }
               >

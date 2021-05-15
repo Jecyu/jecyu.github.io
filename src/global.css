@@ -1,5 +1,11 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
+  background: url('./assets/naruto.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #ff8935;
 }
 
 body {

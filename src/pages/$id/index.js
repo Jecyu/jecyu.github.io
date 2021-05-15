@@ -290,7 +290,7 @@ class Detail extends Component {
     const {
       home: {
         commentList = [],
-        issueDetail: { body = '' },
+        issueDetail: { body = '', title = '' },
         likes = [],
       },
       user: { userInfo = {} },
@@ -304,6 +304,7 @@ class Detail extends Component {
     return (
       <div className={styles.detail} ref={ref => (this.article = ref)}>
         <Skeleton loading={detailLoading} active>
+          <h1>{title}</h1>
           <Markdown dataSource={body} />
           <div className={styles.append} id="likesContainer">
             <Icon
@@ -332,8 +333,8 @@ class Detail extends Component {
                       onClick={() => {
                         window.location.href =
                           'https://github.com/login/oauth/authorize?client_id=Iv1.4b7099aca41da4cf&redirect_uri=https://naluduo.vip';
-                          // window.location.href =
-                          // 'https://github.com/login/oauth/authorize?client_id=Iv1.4b7099aca41da4cf&redirect_uri=http:localhost//8000';
+                        // window.location.href =
+                        // 'https://github.com/login/oauth/authorize?client_id=Iv1.4b7099aca41da4cf&redirect_uri=http:localhost//8000';
                       }}
                     >
                       github登录

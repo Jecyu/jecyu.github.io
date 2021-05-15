@@ -1,6 +1,7 @@
 import React from 'react';
 import { Collapse, List, Tag } from 'antd';
 import styles from './index.less';
+import style from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark';
 
 const { Panel } = Collapse;
 const { CheckableTag } = Tag;
@@ -36,8 +37,8 @@ class Archive extends React.Component {
       <div className={styles.root}>
         <div className={styles.timeLine}>
           <div className={styles.title}>时间轴</div>
-          <div>
-            <Collapse accordion>
+          <div className={styles.content} >
+            <Collapse accordion >
               {Object.keys(timeLine).map(time => {
                 return (
                   <Panel header={`${time}(${timeLine[time].total})`} key={time}>

@@ -1,14 +1,37 @@
-
 .root {
-  margin-top: 20px;
-  margin-left: 315px;
   display: flex;
+  margin-top: 20px;
+  flex-wrap: wrap; // 装不下进行换行
+  // mobile 移动设备断点，视窗宽度 ≤ 768 px
+  @media screen and (max-width: 768px) {
+    margin-left: 0;
+    align-items: center;
+  }
+  // tablet	平板电脑设备断点，视窗宽度 ≥ 769 px
+  @media screen and (min-width: 769px) {
+    margin-left: 315px;
+  }
+  // desktop 桌面电脑断点，视窗宽度 ≥ 1024 px
+  @media screen and (min-width: 1024px) {
+    margin-left: 315px;
+  }
+  // widescreen 宽屏电脑断点，视窗宽度 ≥ 1216 px
+  @media screen and (min-width: 1216px) {
+    margin-left: 315px;
+  }
+  // fullhd 高清宽屏电脑断点，视窗宽度 ≥ 1408 px
+  @media screen and (min-width: 1408px) {
+    // background-color: red;
+    margin-left: 315px;
+  }
+
+  
   .list {
-     width: 100%;
-     margin: 0 20px 0 10px;
+    width: 100%;
+    margin: 0 15px 0 15px;
   }
   .listItem {
-    box-shadow: 3px 3px 4px rgba(0,0,0,.08);
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.08);
     border: 1px solid #dcdfe6;
     border-radius: 4px;
     padding: 15px;
@@ -17,12 +40,13 @@
   }
   .title {
     font-weight: bold;
-    color: rgba(0,0,0);
+    color: rgba(0, 0, 0);
     text-shadow: 1px 1px #efefef, 3px 3px #ccc;
     font-size: 20px;
   }
   .copyright {
     display: flex;
     justify-content: center;
+    background: rgba(255, 255, 255, 0.7);
   }
 }

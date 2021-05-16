@@ -17,6 +17,31 @@
   border: 1px solid #dcdfe6;
   border-radius: 4px;
   background: rgba(255, 255, 255, 1);
+
+  @media screen and (max-width: 768px) {
+    position: relative;
+    right: 0;
+    top: 0;
+    width: 100%;
+    border:0;
+    box-shadow: none;
+  }
+  // tablet	平板电脑设备断点，视窗宽度 ≥ 769 px
+  @media screen and (min-width: 769px) {
+  
+  }
+  // desktop 桌面电脑断点，视窗宽度 ≥ 1024 px
+  @media screen and (min-width: 1024px) {
+  
+  }
+  // widescreen 宽屏电脑断点，视窗宽度 ≥ 1216 px
+  @media screen and (min-width: 1216px) {
+  
+  }
+  // fullhd 高清宽屏电脑断点，视窗宽度 ≥ 1408 px
+  @media screen and (min-width: 1408px) {
+    // background-color: red;
+  }
   li {
     cursor: pointer;
     margin-bottom: @gapInner;

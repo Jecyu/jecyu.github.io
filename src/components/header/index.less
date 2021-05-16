@@ -12,6 +12,24 @@
     height: 50px;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 768px) {
+      margin: 0 5px;
+    }
+    // tablet	平板电脑设备断点，视窗宽度 ≥ 769 px
+    @media screen and (min-width: 769px) {
+    }
+    // desktop 桌面电脑断点，视窗宽度 ≥ 1024 px
+    @media screen and (min-width: 1024px) {
+    }
+    // widescreen 宽屏电脑断点，视窗宽度 ≥ 1216 px
+    @media screen and (min-width: 1216px) {
+    }
+    // fullhd 高清宽屏电脑断点，视窗宽度 ≥ 1408 px
+    @media screen and (min-width: 1408px) {
+      // background-color: red;
+    }
   }
   .title {
     height: 48px;

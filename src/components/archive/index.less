@@ -3,6 +3,25 @@
   top: 70px;
   width: 286px;
   left: 20px;
+  @media screen and (max-width: 768px) {
+    position: relative;
+    top: 0px;
+    width: 100%;
+    left: 0px;
+    padding: 0 15px;
+  }
+  // tablet	平板电脑设备断点，视窗宽度 ≥ 769 px
+  @media screen and (min-width: 769px) {
+  }
+  // desktop 桌面电脑断点，视窗宽度 ≥ 1024 px
+  @media screen and (min-width: 1024px) {
+  }
+  // widescreen 宽屏电脑断点，视窗宽度 ≥ 1216 px
+  @media screen and (min-width: 1216px) {
+  }
+  // fullhd 高清宽屏电脑断点，视窗宽度 ≥ 1408 px
+  @media screen and (min-width: 1408px) {
+  }
   :global(.ant-collapse) {
     border-radius: 0 !important;
     border-left: 0 !important;
@@ -21,7 +40,7 @@
     box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.08);
     border: 1px solid #dcdfe6;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     background: rgba(255, 255, 255, 0.7);
     .title {
       display: flex;
@@ -37,6 +56,8 @@
     border-radius: 4px;
     // padding: 0 10px 10px 10px;
     background: rgba(255, 255, 255, 0.7);
+    margin-bottom: 15px;
+
     .title {
       display: flex;
       align-items: center;

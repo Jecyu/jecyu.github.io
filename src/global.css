@@ -1,3 +1,9 @@
+/* 设计稿 1920 font-size: 19.2px */
+/* 响应式 */
+html {
+  font-size: 19.2 / (1920 / 2) * 100vw;
+}
+
 html,
 body,
 #root {
@@ -5,7 +11,23 @@ body,
   background: url('./assets/naruto.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #ff8935;
+  background-color: #000;
+  background-position: center;
+
+  @media screen and (max-width: 768px) {
+  }
+  /* // tablet	平板电脑设备断点，视窗宽度 ≥ 769 px */
+  @media screen and (min-width: 769px) {
+  }
+  /* // desktop 桌面电脑断点，视窗宽度 ≥ 1024 px */
+  @media screen and (min-width: 1024px) {
+  }
+  /* // widescreen 宽屏电脑断点，视窗宽度 ≥ 1216 px */
+  @media screen and (min-width: 1216px) {
+  }
+  /* // fullhd 高清宽屏电脑断点，视窗宽度 ≥ 1408 px */
+  @media screen and (min-width: 1408px) {
+  }
 }
 
 body {

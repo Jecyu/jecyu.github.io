@@ -1,4 +1,4 @@
-import BlogHeader from '@/components/header';
+import BlogHeader from '../components/header/index';
 import { ConfigProvider, BackTop } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import styles from './index.less';

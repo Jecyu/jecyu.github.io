@@ -305,6 +305,7 @@ class Detail extends Component {
       <div className={styles.detail} ref={ref => (this.article = ref)}>
         <Skeleton loading={detailLoading} active>
           <h1>{title}</h1>
+          <Catelog data={headings} />
           <Markdown dataSource={body} />
           <div className={styles.append} id="likesContainer">
             <Icon
@@ -315,7 +316,6 @@ class Detail extends Component {
             />
             <span className={styles.number}>{likes.length}</span>
           </div>
-          <Catelog data={headings} />
         </Skeleton>
 
         <Skeleton loading={commentLoading} active avatar>

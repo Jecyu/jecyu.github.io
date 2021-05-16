@@ -2,12 +2,34 @@
   margin: 20px 394px 20px 300px;
   background: rgba(255, 255, 255, 1);
   padding: 15px;
+
+  @media screen and (max-width: 768px) {
+    margin: 15px 15px;
+  }
+  // tablet	平板电脑设备断点，视窗宽度 ≥ 769 px
+  @media screen and (min-width: 769px) {
+  
+  }
+  // desktop 桌面电脑断点，视窗宽度 ≥ 1024 px
+  @media screen and (min-width: 1024px) {
+  
+  }
+  // widescreen 宽屏电脑断点，视窗宽度 ≥ 1216 px
+  @media screen and (min-width: 1216px) {
+  
+  }
+  // fullhd 高清宽屏电脑断点，视窗宽度 ≥ 1408 px
+  @media screen and (min-width: 1408px) {
+    // background-color: red;
+  
+  }
+
   img {
     text-align: center;
   }
   :global(.ant-form-item) {
     margin-bottom: 15px;
-  }
+  } 
   .append {
     font-size: 34px;
     margin-top: 10px;

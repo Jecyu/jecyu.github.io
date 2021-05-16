@@ -148,7 +148,8 @@ class Index extends Component {
                 ]}
                 extra={
                   <img
-                    width={272}
+                    height={80}
+                    width={142}
                     style={{ borderRadius: 5, background: '#fff' }}
                     alt="cover picture"
                     // src={item.body.match(/!\[.+?\]\((.+?[^)]*)\)/)[1]}
